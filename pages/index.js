@@ -1,19 +1,37 @@
-import { useState } from 'react';
-import Image from 'next/image';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import config from '../utils/config';
+import Movie from '../components/common/Movie';
 import css from '../styles/index.module.css';
 
 export default function Home() {
-	const url = `https://i.pinimg.com/originals/bc/d5/c9/bcd5c9519581acc60bd60a429ab0c88f.jpg`;
+	// states
+	const [movies, setMovies] = useState([]);
+	const [page, setPage] = useState(1);
 
-	const [starred, setStarred] = useState(false);
+	useEffect(() => {
+		(async () => {
+			await getMovies(1);
+		})();
+	}, []);
 
 	/**
 	 *
 	 *
-	 * star the movie
+	 * fetch movies from the API
+	 * @param {pg} - page to get the data from
 	 */
-	const handleStarred = () => {
-		starred ? setStarred(false) : setStarred(true);
+	const getMovies = async (pg) => {
+		try {
+			const res = await axios.get(`${config.api}&page=${pg}`);
+			const { data } = res;
+			const { results } = data;
+
+			const tempState = [...movies, ...results];
+			setMovies(tempState);
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
 	return (
@@ -22,43 +40,22 @@ export default function Home() {
 				<div className={css.heading}>
 					<h2>Top 500 Highest Rated Movies</h2>
 				</div>
-				<div className={css.movies}>
-					<div className={css.movie_details_wrapper}>
-						<div className={css.poster}>
-							<Image
-								src={url}
-								alt="the hill"
-								width={230}
-								height={298}
-								loading="eager"
+				{movies.length > 0 ? (
+					movies.map((movie) => {
+						return (
+							<Movie
+								key={movie.id}
+								poster={movie.poster_path}
+								title={movie.title}
+								rating={movie.vote_average}
+								year={movie.release_date}
+								id={movie.id}
 							/>
-						</div>
-						<div className={css.movie_info}>
-							<h3>TITLE: The Hill</h3>
-							<p>RATING: 9.3</p>
-							<p>YEAR: 2021</p>
-						</div>
-					</div>
-					<div className={css.star}>
-						{!starred ? (
-							<Image
-								src="/star.png"
-								alt="star"
-								width={32}
-								height={32}
-								onClick={handleStarred}
-							/>
-						) : (
-							<Image
-								src="/starred.png"
-								onClick={handleStarred}
-								alt="starred"
-								width={32}
-								height={32}
-							/>
-						)}
-					</div>
-				</div>
+						);
+					})
+				) : (
+					<h2>Loading...</h2>
+				)}
 			</div>
 		</div>
 	);
