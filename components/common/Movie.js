@@ -1,5 +1,8 @@
+// packages
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+
+// stylesheet
 import css from '../../styles/movie.module.css';
 
 const Movie = ({ poster, title, rating, year, id, isStar }) => {
