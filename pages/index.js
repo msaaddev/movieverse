@@ -23,15 +23,13 @@ export default function Home({ results }) {
 	const [sortBy, setSortBy] = useState('desc');
 
 	useEffect(() => {
-		(async () => {
-			// get star array from the local storage
-			const arr = JSON.parse(localStorage.getItem('starredArr'));
-			if (!arr) {
-				localStorage.setItem('starredArr', JSON.stringify([]));
-			} else {
-				setStarArr(arr);
-			}
-		})();
+		// get star array from the local storage
+		const arr = JSON.parse(localStorage.getItem('starredArr'));
+		if (!arr) {
+			localStorage.setItem('starredArr', JSON.stringify([]));
+		} else {
+			setStarArr(arr);
+		}
 	}, []);
 
 	/**
