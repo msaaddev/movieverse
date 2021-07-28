@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
 import css from '../../styles/movie.module.css';
 
 const Movie = ({ poster, title, rating, year, id }) => {
+	// states
 	const [starred, setStarred] = useState(false);
+
+	// DOM references
+	const movieRef = useRef();
+	const movieDetailsRef = useRef();
 
 	/**
 	 *
@@ -11,10 +16,19 @@ const Movie = ({ poster, title, rating, year, id }) => {
 	 * star the movie
 	 */
 	const handleStarred = () => {
-		starred ? setStarred(false) : setStarred(true);
+		if (starred) {
+			setStarred(false);
+			movieRef.current.style.backgroundColor = `#1f1f1f`;
+			movieDetailsRef.current.style.color = `#ffffff`;
+		} else {
+			setStarred(true);
+			movieRef.current.style.backgroundColor = `#ffffff`;
+			movieDetailsRef.current.style.color = `#1f1f1f`;
+		}
 	};
+
 	return (
-		<div className={css.movies}>
+		<div className={css.movies} id={id} ref={movieRef}>
 			<div className={css.movie_details_wrapper}>
 				<div className={css.poster}>
 					<Image
@@ -25,7 +39,7 @@ const Movie = ({ poster, title, rating, year, id }) => {
 						loading="eager"
 					/>
 				</div>
-				<div className={css.movie_info}>
+				<div className={css.movie_info} ref={movieDetailsRef}>
 					<p>TITLE: {`${title}`}</p>
 					<p>RATING: {`${rating}`}</p>
 					<p>YEAR: {`${year.slice(0, 4)}`}</p>
