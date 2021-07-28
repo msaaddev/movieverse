@@ -81,15 +81,17 @@ const Movie = ({ poster, title, rating, year, id, isStar }) => {
 						alt="star"
 						width={32}
 						height={32}
+						loading="eager"
 						onClick={handleStarred}
 					/>
 				) : (
 					<Image
 						src="/starred.png"
-						onClick={handleStarred}
 						alt="starred"
 						width={32}
 						height={32}
+						loading="eager"
+						onClick={handleStarred}
 					/>
 				)}
 			</div>

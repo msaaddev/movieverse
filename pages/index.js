@@ -1,6 +1,7 @@
 // packages
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 // utils
 import config from '../utils/config';
@@ -17,6 +18,7 @@ export default function Home() {
 	const [movies, setMovies] = useState([]);
 	const [starArr, setStarArr] = useState([]);
 	const [page, setPage] = useState(1);
+	const [hasMore, setHasMore] = useState(true);
 
 	useEffect(() => {
 		(async () => {
@@ -47,9 +49,34 @@ export default function Home() {
 
 			const tempState = [...movies, ...results];
 			setMovies(tempState);
+
+			let tempPage = page;
+			tempPage++;
+			tempPage !== 26 ? setPage(tempPage) : setHasMore(false);
 		} catch (err) {
 			console.error(err);
 		}
+	};
+
+	/**
+	 *
+	 *
+	 * @param
+	 */
+	const renderMovies = () => {
+		return movies.map((movie) => {
+			return (
+				<Movie
+					key={movie.id}
+					poster={movie.poster_path}
+					title={movie.title}
+					rating={movie.vote_average}
+					year={movie.release_date}
+					id={movie.id}
+					isStar={starArr.includes(movie.id) ? true : false}
+				/>
+			);
+		});
 	};
 
 	return (
@@ -59,23 +86,22 @@ export default function Home() {
 					<h2>Top 500 Highest Rated Movies</h2>
 				</div>
 				{movies.length > 0 ? (
-					movies.map((movie) => {
-						return (
-							<Movie
-								key={movie.id}
-								poster={movie.poster_path}
-								title={movie.title}
-								rating={movie.vote_average}
-								year={movie.release_date}
-								id={movie.id}
-								isStar={
-									starArr.includes(movie.id) ? true : false
-								}
-							/>
-						);
-					})
+					<InfiniteScroll
+						dataLength={movies.length}
+						next={() => getMovies(page)}
+						hasMore={hasMore}
+						loader={<Loader />}
+					>
+						{renderMovies()}
+					</InfiniteScroll>
 				) : (
 					<Loader />
+				)}
+
+				{!hasMore && (
+					<div className={css.end}>
+						<h3>Top 500 movies loaded.</h3>
+					</div>
 				)}
 			</div>
 		</div>
