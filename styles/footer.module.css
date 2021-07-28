@@ -1,0 +1,27 @@
+/* web styles */
+
+.container {
+	width: 100vw;
+	height: 8vh;
+	background: #1f1f1f;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.msg p {
+	color: #ffffff;
+	text-align: center;
+	font-size: 0.85rem;
+	margin: 0 10px;
+	line-height: 20px;
+	font-weight: 300;
+}
+
+/* responsive styles */
+@media screen and (max-width: 768px) {
+    .msg p {
+		font-size: 0.7rem;
+	}
+}

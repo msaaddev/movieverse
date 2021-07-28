@@ -1,0 +1,44 @@
+/* web styles */
+
+.container {
+	width: 100vw;
+	height: 100vh;
+	background: #1f1f1f;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.sub_container {
+	color: #ffffff;
+	text-align: center;
+}
+
+.sub_container h1 {
+	text-transform: uppercase;
+	background-color: #fff;
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+	background-clip: text;
+	background-image: linear-gradient(
+		180deg,
+		rgba(255, 255, 255, 0.9),
+		rgba(151, 151, 151, 0.8)
+	);
+	font-size: 4rem;
+	letter-spacing: 4px;
+	margin-top: 0;
+}
+
+.sub_container p {
+	font-weight: 500;
+}
+
+/* responsive styles */
+@media screen and (max-width: 768px) {
+    .sub_container h1 {
+		font-size: 2.5rem;
+		letter-spacing: 4px;
+	}
+}
