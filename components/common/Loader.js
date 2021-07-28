@@ -1,9 +1,10 @@
 import ContentLoader from 'react-content-loader';
+import css from '../../styles/loader.module.css';
 
 const Loader = () => (
-	<div style={{ marginBottom: 50 }}>
-		<ContentLoader speed={2} width={300} height={300} viewBox="0 0 300 300">
-			<rect x="0" y="20" rx="2" ry="2" width="300" height="300" />
+	<div className={css.container}>
+		<ContentLoader speed={2} width={260} height={300} viewBox="0 0 260 300">
+			<rect x="0" y="20" rx="2" ry="2" width="260" height="300" />
 		</ContentLoader>
 	</div>
 );
