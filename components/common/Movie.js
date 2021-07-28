@@ -2,6 +2,9 @@
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 
+// components
+import Star from './Star';
+
 // stylesheet
 import css from '../../styles/movie.module.css';
 
@@ -24,11 +27,11 @@ const Movie = ({ poster, title, rating, year, id, isStar }) => {
 	 *
 	 *
 	 * star the movie and keep the state persistant if needed
-	 * @param {performOp} - perform data operations if set to true
+	 * @param {crud} - perform data operations if set to true
 	 */
-	const handleStarred = (performOp = true) => {
+	const handleStarred = (crud = true) => {
 		let starredArr;
-		performOp
+		crud
 			? (starredArr = JSON.parse(localStorage.getItem('starredArr')))
 			: [];
 
@@ -39,7 +42,7 @@ const Movie = ({ poster, title, rating, year, id, isStar }) => {
 			movieDetailsRef.current.style.color = `#ffffff`;
 
 			// remove the id from the starred array list
-			if (performOp) {
+			if (crud) {
 				const index = starredArr.indexOf(id);
 				starredArr.splice(index, 1);
 			}
@@ -49,11 +52,10 @@ const Movie = ({ poster, title, rating, year, id, isStar }) => {
 			movieDetailsRef.current.style.color = `#1f1f1f`;
 
 			// add id to starred array
-			performOp && starredArr.push(id);
+			crud && starredArr.push(id);
 		}
 
-		performOp &&
-			localStorage.setItem('starredArr', JSON.stringify(starredArr));
+		crud && localStorage.setItem('starredArr', JSON.stringify(starredArr));
 	};
 
 	return (
@@ -62,7 +64,6 @@ const Movie = ({ poster, title, rating, year, id, isStar }) => {
 				href={`https://www.themoviedb.org/movie/${id}`}
 				target="_blank"
 				rel="noreferrer"
-				
 			>
 				<div className={css.movie_details_wrapper}>
 					<div className={css.poster}>
@@ -81,27 +82,7 @@ const Movie = ({ poster, title, rating, year, id, isStar }) => {
 					</div>
 				</div>
 			</a>
-			<div className={css.star}>
-				{!starred ? (
-					<Image
-						src="/star.png"
-						alt="star"
-						width={32}
-						height={32}
-						loading="eager"
-						onClick={handleStarred}
-					/>
-				) : (
-					<Image
-						src="/starred.png"
-						alt="starred"
-						width={32}
-						height={32}
-						loading="eager"
-						onClick={handleStarred}
-					/>
-				)}
-			</div>
+			<Star starred={starred} handleStarred={handleStarred} />
 		</div>
 	);
 };

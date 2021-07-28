@@ -38,19 +38,6 @@
 	font-weight: 500;
 }
 
-.star {
-	flex: 0.5;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: #ffffff;
-	border-left: solid 1px #1f1f1f;
-}
-
-.star img {
-	cursor: pointer;
-}
-
 /* responsive styles */
 @media screen and (max-width: 768px) {
 	.movies {
@@ -90,11 +77,5 @@
 		font-size: 0.8rem;
 		font-weight: 400;
 		margin-bottom: 20px;
-	}
-
-	.star {
-		flex: 0.8;
-		padding-bottom: 10px;
-		border: none;
 	}
 }
