@@ -6,6 +6,7 @@ const SEO = () => {
 		<Head>
 			<title>{config.title}</title>
 			<meta charSet="utf-8" />
+			<meta name="theme-color" content="#ffffff"/>
 			<link rel="icon" href="/favicon.ico" />
 			<meta
 				name="viewport"
