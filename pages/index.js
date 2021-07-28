@@ -78,6 +78,7 @@ export default function Home({ results }) {
 	/**
 	 *
 	 *
+	 * handle sorting the API data
 	 * @param {value} - sorting value either 'desc' or 'asc'
 	 */
 	const handleSort = (value) => {
@@ -96,7 +97,7 @@ export default function Home({ results }) {
 	/**
 	 *
 	 *
-	 * map out all the movies on the screen
+	 * maps out all the movies on the screen
 	 */
 	const renderMovies = () => {
 		return movies.map((movie) => {
