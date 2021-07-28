@@ -13,20 +13,17 @@ import Loader from '../components/common/Loader';
 // stylesheet
 import css from '../styles/index.module.css';
 
-export default function Home() {
+export default function Home({ results }) {
 	// states
-	const [movies, setMovies] = useState([]);
+	const [movies, setMovies] = useState(results);
 	const [starArr, setStarArr] = useState([]);
-	const [page, setPage] = useState(1);
+	const [page, setPage] = useState(2);
 	const [ascPage, setAscPage] = useState(25);
 	const [hasMore, setHasMore] = useState(true);
 	const [sortBy, setSortBy] = useState('desc');
 
 	useEffect(() => {
 		(async () => {
-			// fetch data from the first page
-			sortBy === 'desc' && (await getMovies(1));
-
 			// get star array from the local storage
 			const arr = JSON.parse(localStorage.getItem('starredArr'));
 			if (!arr) {
@@ -152,4 +149,17 @@ export default function Home() {
 			</div>
 		</div>
 	);
+}
+
+// fetching data at build time
+export async function getStaticProps() {
+	const res = await axios.get(`${config.api}&page=${1}`);
+	const { data } = res;
+	const { results } = data;
+
+	return {
+		props: {
+			results
+		}
+	};
 }
