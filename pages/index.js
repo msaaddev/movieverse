@@ -17,7 +17,7 @@ export default function Home({ results }) {
 	// states
 	const [movies, setMovies] = useState(results);
 	const [starArr, setStarArr] = useState([]);
-	const [page, setPage] = useState(2);
+	const [descPage, setDescPage] = useState(2);
 	const [ascPage, setAscPage] = useState(25);
 	const [hasMore, setHasMore] = useState(true);
 	const [sortBy, setSortBy] = useState('desc');
@@ -38,13 +38,13 @@ export default function Home({ results }) {
 	 *
 	 *
 	 * fetch movies from the API
-	 * @param {pg} - page to get the data from
+	 * @param {page} - page to get the data from
 	 * @param {sort} - sorting value with default descending
 	 * @param {firstRender} - first render on the screen after sorting value change
 	 */
-	const getMovies = async (pg, sort = 'desc', firstRender = false) => {
+	const getMovies = async (page, sort = 'desc', firstRender = false) => {
 		try {
-			const res = await axios.get(`${config.api}&page=${pg}`);
+			const res = await axios.get(`${config.api}&page=${page}`);
 			const { data } = res;
 			const { results } = data;
 
@@ -55,9 +55,9 @@ export default function Home({ results }) {
 					: (tempState = [...movies, ...results]);
 				setMovies(tempState);
 
-				let tempPage = page;
+				let tempPage = descPage;
 				tempPage++;
-				tempPage !== 26 ? setPage(tempPage) : setHasMore(false);
+				tempPage !== 26 ? setDescPage(tempPage) : setHasMore(false);
 			} else {
 				const newResults = results.reverse();
 				let tempState;
@@ -83,7 +83,7 @@ export default function Home({ results }) {
 	const handleSort = (value) => {
 		setSortBy(value);
 		setMovies([]);
-		setPage(1);
+		setDescPage(1);
 		setAscPage(25);
 
 		if (value !== 'desc') {
@@ -129,7 +129,7 @@ export default function Home({ results }) {
 						dataLength={movies.length}
 						next={() => {
 							sortBy === 'desc'
-								? getMovies(page)
+								? getMovies(descPage)
 								: getMovies(ascPage, 'asc');
 						}}
 						hasMore={hasMore}
