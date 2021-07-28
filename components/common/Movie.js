@@ -62,6 +62,7 @@ const Movie = ({ poster, title, rating, year, id, isStar }) => {
 				href={`https://www.themoviedb.org/movie/${id}`}
 				target="_blank"
 				rel="noreferrer"
+				
 			>
 				<div className={css.movie_details_wrapper}>
 					<div className={css.poster}>

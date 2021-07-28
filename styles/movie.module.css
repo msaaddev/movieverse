@@ -12,12 +12,15 @@
 	justify-content: space-between;
 }
 
+.movies a {
+	flex: 2.5;
+}
+
 .movies:last-child {
 	margin-bottom: 100px;
 }
 
 .movie_details_wrapper {
-	flex: 2.5;
 	display: flex;
 }
 
@@ -73,7 +76,7 @@
 
 	.poster img {
 		width: 260px;
-		height: 325px;
+		height: 340px;
 	}
 
 	.movie_info p {
