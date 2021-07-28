@@ -7,11 +7,21 @@ import css from '../styles/index.module.css';
 export default function Home() {
 	// states
 	const [movies, setMovies] = useState([]);
+	const [starArr, setStarArr] = useState([]);
 	const [page, setPage] = useState(1);
 
 	useEffect(() => {
 		(async () => {
+			// fetch data from the first page
 			await getMovies(1);
+
+			// get star array from the local storage
+			const arr = JSON.parse(localStorage.getItem('starredArr'));
+			if (!arr) {
+				localStorage.setItem('starredArr', JSON.stringify([]));
+			} else {
+				setStarArr(arr);
+			}
 		})();
 	}, []);
 
@@ -50,6 +60,9 @@ export default function Home() {
 								rating={movie.vote_average}
 								year={movie.release_date}
 								id={movie.id}
+								isStar={
+									starArr.includes(movie.id) ? true : false
+								}
 							/>
 						);
 					})

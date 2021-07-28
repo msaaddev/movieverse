@@ -1,8 +1,8 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import css from '../../styles/movie.module.css';
 
-const Movie = ({ poster, title, rating, year, id }) => {
+const Movie = ({ poster, title, rating, year, id, isStar }) => {
 	// states
 	const [starred, setStarred] = useState(false);
 
@@ -10,21 +10,47 @@ const Movie = ({ poster, title, rating, year, id }) => {
 	const movieRef = useRef();
 	const movieDetailsRef = useRef();
 
+	useEffect(() => {
+		// star the movies if they were previously starred
+		if (isStar) {
+			handleStarred(false);
+		}
+	}, [isStar]);
+
 	/**
 	 *
 	 *
-	 * star the movie
+	 * star the movie and keep the state persistant if needed
+	 * @param {performOp} - perform data operations if set to true
 	 */
-	const handleStarred = () => {
+	const handleStarred = (performOp = true) => {
+		let starredArr;
+		performOp
+			? (starredArr = JSON.parse(localStorage.getItem('starredArr')))
+			: [];
+
+		// change background color and text color and perform data operations
 		if (starred) {
 			setStarred(false);
 			movieRef.current.style.backgroundColor = `#1f1f1f`;
 			movieDetailsRef.current.style.color = `#ffffff`;
+
+			// remove the id from the starred array list
+			if (performOp) {
+				const index = starredArr.indexOf(id);
+				starredArr.splice(index, 1);
+			}
 		} else {
 			setStarred(true);
 			movieRef.current.style.backgroundColor = `#ffffff`;
 			movieDetailsRef.current.style.color = `#1f1f1f`;
+
+			// add id to starred array
+			performOp && starredArr.push(id);
 		}
+
+		performOp &&
+			localStorage.setItem('starredArr', JSON.stringify(starredArr));
 	};
 
 	return (
