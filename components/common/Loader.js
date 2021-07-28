@@ -1,4 +1,7 @@
+// package
 import ContentLoader from 'react-content-loader';
+
+// stylesheet
 import css from '../../styles/loader.module.css';
 
 const Loader = () => (

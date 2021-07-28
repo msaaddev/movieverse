@@ -1,5 +1,8 @@
+// packages
 import Image from 'next/image';
 import config from '../utils/config';
+
+// stylesheet
 import css from '../styles/hero.module.css';
 
 const Hero = () => {

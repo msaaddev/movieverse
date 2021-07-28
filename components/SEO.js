@@ -1,4 +1,7 @@
+// packages
 import Head from 'next/head';
+
+// utils
 import config from '../utils/config';
 
 const SEO = () => {
@@ -6,7 +9,7 @@ const SEO = () => {
 		<Head>
 			<title>{config.title}</title>
 			<meta charSet="utf-8" />
-			<meta name="theme-color" content="#ffffff"/>
+			<meta name="theme-color" content="#ffffff" />
 			<link rel="icon" href="/favicon.ico" />
 			<meta
 				name="viewport"

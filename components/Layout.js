@@ -1,3 +1,4 @@
+// components
 import SEO from './SEO';
 import Hero from './Hero';
 import Footer from './Footer';

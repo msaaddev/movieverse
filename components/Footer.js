@@ -1,3 +1,4 @@
+// stylesheet
 import css from '../styles/footer.module.css';
 
 const Footer = () => {
