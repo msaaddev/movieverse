@@ -24,9 +24,9 @@ const Movie = ({ poster, title, rating, year, id, isStar }) => {
 	}, [isStar]);
 
 	/**
+	 * star the movie and keep the state persistant if needed.
 	 *
 	 *
-	 * star the movie and keep the state persistant if needed
 	 * @param {crud} - perform data operations if set to true
 	 */
 	const handleStarred = (crud = true) => {

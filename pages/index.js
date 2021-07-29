@@ -39,9 +39,8 @@ export default function Home({ results }) {
 	}, [results, setMovies, setStarArr]);
 
 	/**
+	 * fetch movies from the API.
 	 *
-	 *
-	 * fetch movies from the API
 	 * @param {page} - page to get the data from
 	 * @param {sort} - sorting value with default descending
 	 * @param {firstRender} - first render on the screen after sorting value change
@@ -80,9 +79,8 @@ export default function Home({ results }) {
 	};
 
 	/**
+	 * handles sorting the API data.
 	 *
-	 *
-	 * handles sorting the API data
 	 * @param {value} - sorting value either 'desc' or 'asc'
 	 */
 	const handleSort = (value) => {
