@@ -85,9 +85,15 @@ export default function Home({ results }) {
 	 */
 	const handleSort = (value) => {
 		setSortBy(value);
+
+		// resetting values
 		setMovies([]);
 		setDescPage(1);
 		setAscPage(25);
+
+		// getting the latest stars from the local storage
+		const arr = JSON.parse(localStorage.getItem('starredArr'));
+		setStarArr(arr);
 
 		if (value !== 'desc') {
 			getMovies(25, value, true);
