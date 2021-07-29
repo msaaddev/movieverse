@@ -10,7 +10,6 @@ const MovieProvider = ({ children }) => {
 	const [ascPage, setAscPage] = useState(25);
 	const [hasMore, setHasMore] = useState(true);
 	const [sortBy, setSortBy] = useState('desc');
-	const [err, setErr] = useState(false);
 
 	return (
 		<MovieContext.Provider
@@ -26,9 +25,7 @@ const MovieProvider = ({ children }) => {
 				hasMore,
 				setHasMore,
 				sortBy,
-				setSortBy,
-				err,
-				setErr
+				setSortBy
 			}}
 		>
 			{children}
