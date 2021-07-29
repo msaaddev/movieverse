@@ -26,7 +26,7 @@ export default function Home({ results }) {
 	const { setSortBy } = useContext(MovieContext);
 
 	useEffect(() => {
-		// initial state
+		// setting initial state
 		setMovies(results);
 
 		// get star array from the local storage
