@@ -3,11 +3,11 @@ import { useContext } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 // components
-import Movie from './Movie';
-import Loader from './Loader';
+import Movie from 'components/common/Movie';
+import Loader from 'components/common/Loader';
 
 // context
-import { MovieContext } from '../context/MovieContext';
+import { MovieContext } from 'components/context/MovieContext';
 
 const FetchOnScroll = ({ next }) => {
 	// contexts

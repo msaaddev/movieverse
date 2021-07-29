@@ -1,7 +1,7 @@
 // components
-import SEO from './SEO';
-import Hero from './Hero';
-import Footer from './Footer';
+import SEO from 'components/SEO';
+import Hero from 'components/Hero';
+import Footer from 'components/Footer';
 
 const Layout = ({ children }) => {
 	return (

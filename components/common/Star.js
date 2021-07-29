@@ -2,7 +2,7 @@
 import Image from 'next/image';
 
 // stylesheet
-import css from '../../styles/star.module.css';
+import css from 'styles/star.module.css';
 
 const Star = ({ starred, handleStarred }) => {
 	return (

@@ -1,6 +1,6 @@
-import { MovieProvider } from '../components/context/MovieContext';
-import Layout from '../components/Layout';
-import '../styles/globals.css';
+import { MovieProvider } from 'components/context/MovieContext';
+import Layout from 'components/Layout';
+import 'styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
 	return (

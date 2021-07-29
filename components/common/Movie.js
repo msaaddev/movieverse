@@ -3,10 +3,10 @@ import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 
 // components
-import Star from './Star';
+import Star from 'components/common/Star';
 
 // stylesheet
-import css from '../../styles/movie.module.css';
+import css from 'styles/movie.module.css';
 
 const Movie = ({ poster, title, rating, year, id, isStar }) => {
 	// states

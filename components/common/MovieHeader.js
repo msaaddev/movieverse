@@ -1,5 +1,5 @@
 // stylesheet
-import css from '../../styles/movieheader.module.css';
+import css from 'styles/movieheader.module.css';
 
 const MovieHeader = ({ handleSort }) => {
 	return (

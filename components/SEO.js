@@ -2,7 +2,7 @@
 import Head from 'next/head';
 
 // utils
-import config from '../utils/config';
+import config from 'utils/config';
 
 const SEO = () => {
 	return (

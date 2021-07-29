@@ -3,18 +3,18 @@ import { useContext, useEffect } from 'react';
 import axios from 'axios';
 
 // utils
-import config from '../utils/config';
+import config from 'utils/config';
 
 // components
-import FetchOnScroll from '../components/common/FetchOnScroll';
-import MovieHeader from '../components/common/MovieHeader';
-import Loader from '../components/common/Loader';
+import FetchOnScroll from 'components/common/FetchOnScroll';
+import MovieHeader from 'components/common/MovieHeader';
+import Loader from 'components/common/Loader';
 
 // context
-import { MovieContext } from '../components/context/MovieContext';
+import { MovieContext } from 'components/context/MovieContext';
 
 // stylesheet
-import css from '../styles/index.module.css';
+import css from 'styles/index.module.css';
 
 export default function Home({ results }) {
 	// contexts
