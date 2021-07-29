@@ -1,28 +1,34 @@
 // packages
-import { useState, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import axios from 'axios';
-import InfiniteScroll from 'react-infinite-scroll-component';
 
 // utils
 import config from '../utils/config';
 
 // components
-import Movie from '../components/common/Movie';
+import FetchOnScroll from '../components/common/FetchOnScroll';
+import MovieHeader from '../components/common/MovieHeader';
 import Loader from '../components/common/Loader';
+
+// context
+import { MovieContext } from '../components/context/MovieContext';
 
 // stylesheet
 import css from '../styles/index.module.css';
 
 export default function Home({ results }) {
-	// states
-	const [movies, setMovies] = useState(results);
-	const [starArr, setStarArr] = useState([]);
-	const [descPage, setDescPage] = useState(2);
-	const [ascPage, setAscPage] = useState(25);
-	const [hasMore, setHasMore] = useState(true);
-	const [sortBy, setSortBy] = useState('desc');
+	// contexts
+	const { movies, setMovies } = useContext(MovieContext);
+	const { setStarArr } = useContext(MovieContext);
+	const { descPage, setDescPage } = useContext(MovieContext);
+	const { ascPage, setAscPage } = useContext(MovieContext);
+	const { hasMore, setHasMore } = useContext(MovieContext);
+	const { setSortBy } = useContext(MovieContext);
 
 	useEffect(() => {
+		// initial state
+		setMovies(results);
+
 		// get star array from the local storage
 		const arr = JSON.parse(localStorage.getItem('starredArr'));
 		if (!arr) {
@@ -30,7 +36,7 @@ export default function Home({ results }) {
 		} else {
 			setStarArr(arr);
 		}
-	}, []);
+	}, [results, setMovies, setStarArr]);
 
 	/**
 	 *
@@ -76,7 +82,7 @@ export default function Home({ results }) {
 	/**
 	 *
 	 *
-	 * handle sorting the API data
+	 * handles sorting the API data
 	 * @param {value} - sorting value either 'desc' or 'asc'
 	 */
 	const handleSort = (value) => {
@@ -92,59 +98,14 @@ export default function Home({ results }) {
 		}
 	};
 
-	/**
-	 *
-	 *
-	 * maps out all the movies on the screen
-	 */
-	const renderMovies = () => {
-		return movies.map((movie) => {
-			return (
-				<Movie
-					key={movie.id}
-					poster={movie.poster_path}
-					title={movie.title}
-					rating={movie.vote_average}
-					year={movie.release_date}
-					id={movie.id}
-					isStar={starArr.includes(movie.id) ? true : false}
-				/>
-			);
-		});
-	};
-
 	return (
 		<div className={css.container}>
 			<div className={css.sub_container}>
-				<div className={css.header}>
-					<h2>Top 500 Highest Rated Movies</h2>
-					<select onChange={(e) => handleSort(e.target.value)}>
-						<option value="desc">Descending</option>
-						<option value="asc">Ascending</option>
-					</select>
+				<MovieHeader handleSort={handleSort} />
+				{movies ? <FetchOnScroll next={getMovies} /> : <Loader />}
+				<div className={css.end}>
+					{!hasMore && <h3>Top 500 movies loaded.</h3>}
 				</div>
-				{movies.length > 0 ? (
-					<InfiniteScroll
-						dataLength={movies.length}
-						next={() => {
-							sortBy === 'desc'
-								? getMovies(descPage)
-								: getMovies(ascPage, 'asc');
-						}}
-						hasMore={hasMore}
-						loader={<Loader />}
-					>
-						{renderMovies()}
-					</InfiniteScroll>
-				) : (
-					<Loader />
-				)}
-
-				{!hasMore && (
-					<div className={css.end}>
-						<h3>Top 500 movies loaded.</h3>
-					</div>
-				)}
 			</div>
 		</div>
 	);
@@ -152,13 +113,16 @@ export default function Home({ results }) {
 
 // fetching data at build time
 export async function getStaticProps() {
-	const res = await axios.get(`${config.api}&page=${1}`);
-	const { data } = res;
-	const { results } = data;
+	let res;
+	try {
+		res = await axios.get(`${config.api}&page=${1}`);
+	} catch (err) {
+		console.error(err);
+	}
 
 	return {
 		props: {
-			results
+			results: res ? res.data.results : []
 		}
 	};
 }

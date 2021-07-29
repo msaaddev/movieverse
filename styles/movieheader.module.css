@@ -1,0 +1,29 @@
+/* web styles */
+
+.header {
+	text-align: center;
+}
+
+.header h2 {
+	text-transform: uppercase;
+	font-size: 2rem;
+}
+
+.header select {
+	width: 50%;
+	border: none;
+	outline: none;
+	font-size: 19px;
+	padding: 10px;
+	background: rgba(225, 237, 248, 0.6);
+	letter-spacing: 1px;
+	font-weight: 400;
+	font-size: 14px;
+}
+
+/* responsive styles */
+@media screen and (max-width: 768px) {
+	.header h2 {
+		font-size: 1.3rem;
+	}
+}
